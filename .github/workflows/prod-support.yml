@@ -1,0 +1,19 @@
+name: Prod Support Health Check
+
+on:
+  push:
+  schedule:
+    - cron: '0 * * * *'  # every hour
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Health Check Script
+        run: bash scripts/health_check.sh
+
+      - name: Run Backup Job
+        run: bash scripts/backup_job.sh
